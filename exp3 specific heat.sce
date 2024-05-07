@@ -10,9 +10,6 @@ for t =1:td
         Cvdb(t)=9*I*(t/td)^3;
 end
 plot(tvec',[Cve Cvdb Cvdp*ones(Cve)],'linewidth',2)
-title("Plot of Specific Heat of "+mat,'fontsize',6)
-xlabel("Temperature (K)",'fontsize',5)
-ylabel("$\frac{C_v}{NK}$",'fontsize',5)
 L=legend("Einstein''s law","Debye''s law","Dulong-Petit law",4)
 
 replot([%nan %nan;%nan 4])
