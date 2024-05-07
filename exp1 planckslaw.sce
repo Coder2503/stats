@@ -15,19 +15,26 @@ for i=1:length(temp)
     plegend(i)=["T="+string(temp(i))]
      [m,k]=max(Ep(i,:));//wein disp law
     Lmax(i)=L0(k);//wein disp law
+    U(i)=(0.002e-6)*sum(Ep(i,:));// stefans law
     if temp(i)==temp0 then q=i end//3 law at one temp
 end
 replot([0.5 max(L0)/3;0 %nan])
 L=legend(plegend,1)
-
+//all 3 law at one common temperature
 figure(1);scf(1);clf(1);
 plot(L0',[Ep(q,:)' Ew(q,:)' Erj(q,:)'])
 replot([0 0.33*max(L0);0 max(Ep(q,:))*1.05])
 L=legend("Planck''s law","Wien''s law","Reyleigh-Jeans law")
-
-disp("Temperature(T)  Lambda_max(um)  Lambda_max*T(um K)")
-disp([temp' Lmax Lmax.*temp' ])
-
+//plot for wein displacement law
 figure(2);scf(2);clf(2);
 plot(1./temp,Lmax')
 L=legend("max Wavelength in Planck''s plot",4)
+//wein constant in wein displacement law
+disp("Temperature(T)  Lambda_max(um)  Lambda_max*T(um K)")
+disp([temp' Lmax Lmax.*temp' ])
+//stefan law
+figure(3);scf(3);clf(3);
+E=U*c/4
+plot(temp.^4,E)
+disp("Temperature(T)  E  E/T^4")
+disp([temp' E E./temp'.^4 ])
