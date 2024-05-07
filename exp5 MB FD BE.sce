@@ -1,10 +1,8 @@
 clc;clear;clf();
-u=5;T=200;kb=8.6173303e-5
-E=1e-30:0.001:10;
 style=['k-';'k-o';'k-d';'k-o';'k-']
 t=["Bose Einstein";"Maxwell Boltzmann";"Fermi Dirac"]
-a=(E-u)/(kb*T);
-figure(0);scf(0);clf(0)//subplot(1,2,1)
+a=-5:0.5:5;
+figure(0);scf(0);clf(0)//all 3 distribution function in one plot
 for b=-1:1
     f=1./(exp(a)+b)
     plot(a(1:2:$),f(1:2:$),style(b+3),'linewidth',2)
@@ -13,12 +11,12 @@ end
 g=gca();g.y_location="origin"
 title("Plot of statistical distribution functions",'fontsize',6)
 L=legend("Bose Einstein distribution","Maxwell Boltzmann distribution","Fermi Dirac distribution")
-L.font_size=5
 xlabel("$(\frac{\epsilon-\mu}{K_b *T})$",'fontsize',5)
 ylabel("$\bar n$",'fontsize',5)
 T=[0;8000;16000;24000];
-u=7;
-U=[2;3;5;6]
+u=7;//fixed chemical potential for fermi stat
+U=[2;3;5;6]//chemical potential at diff temp
+//3 distribution fn in diff plot at diff temp
 for b=-1:1
 figure(b+2);scf(b+2);clf(b+2);
 for i=1:length(T)
