@@ -1,4 +1,5 @@
 clc;clear;clf();
+kb=8.617e-5
 style=['k-';'k-o';'k-d';'k-o';'k-']
 t=["Bose Einstein";"Maxwell Boltzmann";"Fermi Dirac"]
 a=-5:0.5:5;
