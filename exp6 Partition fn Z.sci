@@ -1,7 +1,7 @@
 clc;clear;clf();
 function [y,y1,y2] = z(e,g,T,b)
     n=length(e)
-    y = sum(exp(-b*e)*g',n);  // Vectorized operation for Z(partition fn
+    y = sum(exp(-b*e)*g',n);  // Vectorized operation for Z(partition fn)
     y1 = sum(-exp(-b*e)*(g.*e)',n);// dZ/db b=beeta
     y2=sum(exp(-b*e)*(g.*e.*e)',n);// d2Z/db2  
     //end
@@ -14,9 +14,10 @@ b=1./(k*T);
 [z1,dz,d2z]=z(e,g,T,b)
 //probability Pi
 subplot(2,2,1)
-pl=1./ z1;
-pu=exp(-b*3)./z1;
-plot(T, pl);
+p1=g(1)*exp(-b*e(1))./z1;//Pi=g(i)*exp(-b*e(i))./z1
+p2=g(2)*exp(-b*e(2))./z1;//above expression calculates probability
+p3=g(3)*exp(-b*e(3))./z1;//use it for as many Pi as you want
+plot(T, [p1 p2 p3]);
 //energy
 subplot(2,2,2)
 E = -dz./z1;
