@@ -11,17 +11,27 @@ g=(e.^2);
 subplot(2,3,1)//g(e)
 plot(e,g)
 subplot(2,3,2)//avg occupation no at two diff temp
-plot(e,n(e,u,1D3,-1),e,n(e,u,1D4,-1))
+plot(e,n(e,u,1D4,-1),e,n(e,u,2D4,-1))
 subplot(2,3,3)// C*dN/de at two diff temp(boson)
 fbe=g.*n(e,u,1D4,-1)
 f1be=g.*n(e,u,2D4,-1)
 plot(e',fbe,e',f1be)
-
+/*
 subplot(2,3,4)//g(e)
 plot(e,g)
 subplot(2,3,5)//avg occupation no at two diff temp
 plot(e,n(e,u1,1D3,1),e,n(e,u1,2D1,1)')
-subplot(2,3,6)// C*dN/de at two diff temp(boson)
+subplot(2,3,6)// C*dN/de at two diff temp(fermion)
 f2fd=g.*n(e,u1,1D3,1)
 f3fd=g.*n(e,u1,2D1,1)
+plot(e',f2fd,e',f3fd)
+*/
+
+subplot(2,3,4)//g(e)
+plot(e,g)
+subplot(2,3,5)//avg occupation no at two diff temp
+plot(e,n(e,0,1D4,0),e,n(e,0,2D4,0)')
+subplot(2,3,6)// C*dN/de at two diff temp(maxwell boltzmann)
+f2fd=g.*n(e,0,1D4,0)//u=0 and1./ (exp(a)+0) in MB stats
+f3fd=g.*n(e,0,2D4,0)//that's why e,0,temp,0 in fn input
 plot(e',f2fd,e',f3fd)
