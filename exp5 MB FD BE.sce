@@ -10,40 +10,42 @@ for b=-1:1
     replot([-5 5;0 2])
 end
 g=gca();g.y_location="origin"
-title("Plot of statistical distribution functions",'fontsize',6)
 L=legend("Bose Einstein distribution","Maxwell Boltzmann distribution","Fermi Dirac distribution")
-xlabel("$(\frac{\epsilon-\mu}{K_b *T})$",'fontsize',5)
-ylabel("$\bar n$",'fontsize',5)
-T=[0;8000;16000;24000];
-u=7;//fixed chemical potential for fermi stat
-U=[2;3;5;6]//chemical potential at diff temp
-//3 distribution fn in diff plot at diff temp
-for b=-1:1
-figure(b+2);scf(b+2);clf(b+2);
+//Maxwell boltzmann at diff temp
+clc;clear;clf();
+kb=8.617e-5;
+T=[4000 6000 8000];
+e=0:0.05:5
 for i=1:length(T)
-    if(b==-1)then 
-        E=-U(i)+0.001:0.01:3;
-        dim=[-max(U) max(E)/3;0  20]
-        end
-    if(b==1)then 
-        U(i)=u; E=-U(i)+0.001:0.01:2*U(i);
-        dim=[0 max(E);0 1.1]
+    for j=1:length(e)
+        nmb(i,j)=1/exp(e(j)/(kb*T(i)))
     end
-    if b==0 then 
-        E=-U(i)+0.001:0.01:10;
-        dim=[0 max(E);0 1.1];
-        end
-    for j=1:length(E)
-    nf(i,j)=1/(exp((E(j)-b*U(i))/(kb*T(i)))+b)
+    plot(e,nmb(i,:))
+end
+legend("T=4000K","T=6000K","T=8000K")
+//fermi dirac at diff temp
+clc;clear;clf();
+kb=8.617e-5;
+T=[100 3000 8000];
+e=0:0.05:6
+u=3;
+for i=1:length(T)
+    for j=1:length(e)
+        nmb(i,j)=1/(exp((e(j)-u)/(kb*T(i)))+1)
     end
-    plot(E(1:10:$),nf(i,1:10:$),style(i),'linewidth',2)
-    replot(dim)
-    l(i)=["T="+string(int(T(i)))+"K"]
+    plot(e,nmb(i,:))
 end
-g=gca();g.y_location="origin"
-        title("Plot of "+t(b+2)+" distribution function",'fontsize',6)
-        L=legend(l)
-        L.font_size=5
-        xlabel("$\epsilon(eV)$",'fontsize',5)
-        ylabel("$\bar n$",'fontsize',5)
+legend("T=100K","T=3000K","T=8000K")
+//bose einstein at diff temp
+clc;clear;clf();
+kb=8.617e-5;
+T=[2000 3000 4000];
+u=[-2 -3 -4];
+for i=1:length(T)
+    e=u(i):0.05:1
+    for j=1:length(e)
+        nmb(i,j)=1/(exp((e(j)-u(i))/(kb*T(i)))-1)
+    end
+    plot(e,nmb(i,:))
 end
+legend("T=2000K","T=3000K","T=4000K")
