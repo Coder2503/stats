@@ -7,15 +7,19 @@ a=8*%pi*h*c;
 figure(0);scf(0);clf(0);
 for i=1:length(temp)
     for j=1:length(L0)
-        Ep(i,j)=(a/(l(j)^5))/(exp(h*c/(l(j)*kb*temp(i)))-1)
-        Ew(i,j)=(a/(l(j)^5))/(exp(h*c/(l(j)*kb*temp(i))))
-        Erj(i,j)=(a/(l(j)^4))*(kb*temp(i)/(h*c))
+        Ep(i,j)=(a/(l(j)^5))/(exp(h*c/(l(j)*kb*temp(i)))-1)//planck black body radiaton law
+        Ew(i,j)=(a/(l(j)^5))/(exp(h*c/(l(j)*kb*temp(i))))//wein black body radiaton law
+        Erj(i,j)=(a/(l(j)^4))*(kb*temp(i)/(h*c))//rayleigh jean black body radiaton law
     end
     plot(L0,Ep)
     plegend(i)=["T="+string(temp(i))]
      [m,k]=max(Ep(i,:));//wein disp law
     Lmax(i)=L0(k);//wein disp law
     U(i)=(0.002e-6)*sum(Ep(i,:));// stefans law
+    //integration in stefan law by trapezoidal rule
+    //integration=(h/2)*(U1+2*U2+2*U3+....2*Un-1+Un)
+    //take U1=Un=0; h=step size of wavelength vector
+    //it become h*sum(U_vector);
     if temp(i)==temp0 then q=i end//3 law at one temp
 end
 replot([0.5 max(L0)/3;0 %nan])
